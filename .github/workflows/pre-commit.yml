@@ -16,7 +16,7 @@ jobs:
       # Installe Python 3.12
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.11"
 
       # Idem que l'éxecution local
-      - uses: pre-commit/action@v3.0.1
+      - uses: pre-commit/action@v4.5.1
