@@ -19,4 +19,4 @@ jobs:
           python-version: "3.11"
 
       # Idem que l'éxecution local
-      - uses: pre-commit/action@v4.5.1
+      - uses: pre-commit/action@v3.0.1
