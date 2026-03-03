@@ -1,5 +1,5 @@
 // Change this if your API runs elsewhere (CI, container, remote)
-const API_URL = (localStorage.getItem("API_URL") || "http://127.0.0.1:8000");
+const API_URL = localStorage.getItem("API_URL") || "http://127.0.0.1:8000";
 document.getElementById("apiUrlLabel").textContent = API_URL;
 
 async function api(path, options = {}) {
@@ -36,17 +36,24 @@ function taskCard(task) {
     </div>
   `;
 
-  div.querySelector('[data-role="save"]').addEventListener("click", async () => {
-    const status = div.querySelector('[data-role="status"]').value;
-    await api(`/tasks/${task.id}`, { method: "PUT", body: JSON.stringify({ status }) });
-    await refresh();
-  });
+  div
+    .querySelector('[data-role="save"]')
+    .addEventListener("click", async () => {
+      const status = div.querySelector('[data-role="status"]').value;
+      await api(`/tasks/${task.id}`, {
+        method: "PUT",
+        body: JSON.stringify({ status }),
+      });
+      await refresh();
+    });
 
-  div.querySelector('[data-role="delete"]').addEventListener("click", async () => {
-    if (!confirm("Supprimer cette tâche ?")) return;
-    await api(`/tasks/${task.id}`, { method: "DELETE" });
-    await refresh();
-  });
+  div
+    .querySelector('[data-role="delete"]')
+    .addEventListener("click", async () => {
+      if (!confirm("Supprimer cette tâche ?")) return;
+      await api(`/tasks/${task.id}`, { method: "DELETE" });
+      await refresh();
+    });
 
   return div;
 }
@@ -69,7 +76,7 @@ async function refresh() {
       container.innerHTML = "<p><em>Aucune tâche pour l’instant.</em></p>";
       return;
     }
-    tasks.forEach(t => container.appendChild(taskCard(t)));
+    tasks.forEach((t) => container.appendChild(taskCard(t)));
   } catch (e) {
     container.innerHTML = `<p style="color:#b00020"><strong>Erreur:</strong> ${escapeHtml(e.message)}</p>
     <p>Vérifie que l’API tourne sur <code>${API_URL}</code>.</p>`;
@@ -81,9 +88,13 @@ document.getElementById("refreshBtn").addEventListener("click", refresh);
 document.getElementById("createForm").addEventListener("submit", async (ev) => {
   ev.preventDefault();
   const title = document.getElementById("title").value.trim();
-  const description = document.getElementById("description").value.trim() || null;
+  const description =
+    document.getElementById("description").value.trim() || null;
 
-  await api("/tasks", { method: "POST", body: JSON.stringify({ title, description }) });
+  await api("/tasks", {
+    method: "POST",
+    body: JSON.stringify({ title, description }),
+  });
 
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
