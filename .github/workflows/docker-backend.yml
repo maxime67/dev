@@ -3,12 +3,8 @@ name: Build Backend
 on:
   push:
     branches: [main, tp2]
-    paths:
-      - "backend/**"
   pull_request:
     branches: [main, tp2]
-    paths:
-      - "backend/**"
 
 jobs:
   build:
