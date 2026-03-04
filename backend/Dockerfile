@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt --proxy=10.35.0.248:8080
+RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ app/
 
 EXPOSE 8000
