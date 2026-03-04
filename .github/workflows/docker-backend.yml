@@ -1,0 +1,21 @@
+name: Build Backend
+
+on:
+  push:
+    branches: [main, tp2]
+    paths:
+      - "backend/**"
+  pull_request:
+    branches: [main, tp2]
+    paths:
+      - "backend/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t task-manager-backend ./backend
