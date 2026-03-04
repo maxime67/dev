@@ -13,16 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Lint backend Dockerfile
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: backend/Dockerfile
-          failure-threshold: warning
-          format: tty
+      - name: Install hadolint
+        run: |
+          wget -qO /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          chmod +x /usr/local/bin/hadolint
 
-      - name: Lint frontend Dockerfile
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: frontend/Dockerfile
-          failure-threshold: warning
-          format: tty
+      - name: Lint Dockerfiles
+        run: |
+          hadolint backend/Dockerfile
+          hadolint frontend/Dockerfile
