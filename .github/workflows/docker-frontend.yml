@@ -15,3 +15,10 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t task-manager-frontend ./frontend
+      - name: Scan frontend image
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          image-ref: task-manager-frontend
+          format: table
+          exit-code: 1
+          severity: HIGH,CRITICAL

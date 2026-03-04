@@ -1,5 +1,5 @@
 name: Lint Dockerfiles
-
+# This workflow uses hadolint to lint the Dockerfiles in the project.
 on:
   push:
     branches: [main, tp2]
